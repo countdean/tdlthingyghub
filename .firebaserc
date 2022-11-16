@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "tdlthingy": {
+      "hosting": {
+        "project": [
+          "tdlthingy"
+        ]
+      }
+    }
+  }
+}

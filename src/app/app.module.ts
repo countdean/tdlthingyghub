@@ -72,6 +72,7 @@ import { EmprankingComponent } from './leaderboard/leaderboard-component/emprank
 import { CdkTableModule } from '@angular/cdk/table';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PTodoService } from './project/ptodo.service';
+import { ProfileComponent } from './profile/profile.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -119,7 +120,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CollaboratorDialogContent,
     TasklistComponent,
     TaskDialogContent,
-    EmprankingComponent
+    EmprankingComponent,
+    ProfileComponent
   ],
   entryComponents: [
     TaskDialogContent

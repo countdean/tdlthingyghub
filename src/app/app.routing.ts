@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { ProjectComponent } from './project/project.component';
 import { CollaboratorComponent } from './collaborator/collaborator.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const AppRoutes: Routes = [
     {
@@ -74,6 +75,17 @@ export const AppRoutes: Routes = [
                     //     { title: 'Dashboard', url: '/dashboard' },
                     //     { title: 'Taskboard' }
                     // ]
+                }
+            },
+            {
+                path: 'profile',
+                component: ProfileComponent,
+                data: {
+                    title: 'Profile',
+                    urls: [
+                        { title: 'Dashboard', url: '/dashboard' },
+                        { title: 'Profile' }
+                    ]
                 }
             },
             

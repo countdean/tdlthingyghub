@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { TranslateService } from '@ngx-translate/core';
+import { Injectable } from '@angular/core';
+import { MenuItems } from 'src/app/shared/menu-items/menu-items';
+
+
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -113,4 +118,5 @@ export class AppHeaderComponent {
     this.translate.use(lang.code)
     this.selectedLanguage = lang;
   }
+
 }
