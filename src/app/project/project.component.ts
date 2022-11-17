@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PTodoService } from './ptodo.service';
 import { PToDo } from './ptodo';
-import { FormGroup, FormBuilder } from '@angular/forms';
-
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ProjectService } from '../Store/services/project/project.service';
+// import { AngularFireModule } from '@angular/fire';
+// import { AngularFireDatabase } from '@angular/fire/database';
+//import { ProjectService } from '../Store/services/project/project.service';
 
 @Component({
   selector: 'app-project',
@@ -14,19 +17,21 @@ export class ProjectComponent implements OnInit {
   sidePanelOpened = true;
 
     public showSidebar = false;
-    inputFg: FormGroup = Object.create(null);
+    inputFg!: FormGroup;
     todoId = 6;
     copyTodos: PToDo[];
     /* search: 'all'; */
     selectedCategory = 'all';
     searchText: string | null = null;
+    //searchText!: FormGroup;
     editSave = 'Edit';
 
-    todos: PToDo[] = this.ptodoService.getTodos();
-
-
+    todos: any[] = this.ptodoService.getTodos();
   
-  constructor(public fb: FormBuilder, public ptodoService: PTodoService ) {
+  constructor(
+    public fb: FormBuilder,
+    public ptodoService: PTodoService,
+    private projectService: ProjectService ) {
         this.copyTodos = this.todos;
    }
 
@@ -40,8 +45,11 @@ mobileSidebar() {
 
 ngOnInit() {
     this.inputFg = this.fb.group({
-        mess: []
+        mess: ['', Validators.required]
     });
+
+    this.projectService.onFetchProject()
+
 }
 
 addTodo(value: string) {
@@ -53,7 +61,7 @@ addTodo(value: string) {
 
     this.todos.splice(0,0,
         {
-            id: this.todoId,
+            //id: this.todoId,
             message: this.inputFg?.get('mess')?.value,
             completionStatus: false,
             edit: false,
@@ -66,6 +74,14 @@ addTodo(value: string) {
     this.inputFg.patchValue({
         mess: '',
     });
+
+ this.projectService.onAddEquipment({
+    id: this.todoId,
+    message: this.inputFg?.get('mess')?.value,
+    completionStatus: false,
+    edit: false,
+    date: new Date()
+ })
 }
 
 allTodos(): void {

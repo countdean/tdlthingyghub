@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign="center start ">
+<div fxLayout="row" fxLayoutAlign="center start">
 	<div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
 		<mat-card class="mat-card-top chat-app position-relative">
 
@@ -37,7 +37,7 @@
 						</mat-list-item>
 					</mat-nav-list>
 				</mat-sidenav>
-				<mat-toolbar class="bg-light b-b no-shadow chat-right-panel p-l-25 padding" >
+				<mat-toolbar class="bg-light b-b no-shadow chat-right-panel p-l-25">
 					<div fxLayout="row" fxFlex="100" class="align-items-center">
 
 						<div class="d-flex align-items-center w-100">
@@ -58,19 +58,19 @@
 					</div>
 				</mat-toolbar>
 				<div class="b-b p-15 bg-white padding">
-					<form fxLayout="row" [formGroup]="inputFg" class="d-md-flex align-items-center">
+					<form fxLayout.gt-lg="5px" [formGroup]="inputFg" class="d-md-flex align-items-center">
 						<mat-form-field class="p-r-15 m-r-15">
 							<mat-label>Add new Todo</mat-label>
 							<input matInput #inputData formControlName='mess'
 								(keyup.enter)="addTodo(inputData.value)">
 						</mat-form-field>
 						<div class="ml-auto">
-							<button mat-raised-button color="primary" [disabled]="!searchText" class="shadow-none"
+							<button mat-raised-button color="primary" [disabled]="!inputFg.valid" class="shadow-none"
 								id="btnAddTodo" (click)="addTodo(inputData.value)">Add Todo</button>
 						</div>
 					</form>
 				</div>
-				<mat-card-content class="chat-middle-box " style="min-height:70vh " >
+				<mat-card-content class="chat-middle-box" style="min-height:70vh">
 
 					<div *ngFor="let todo of copyTodos;let i=index" class="todo-item py-3 pl-3 border-bottom">
 						<div class="todo-item-left d-md-flex w-100">

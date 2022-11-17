@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import {AddComponent} from './add/add.component'; 
+import { CollaboratorService } from '../Store/services/collaborator/collaborator.service';
 //import { DialogComponent } from '../material-component/dialog/dialog.component';
 //import { Collaborator } from './collaborator';
 
@@ -82,7 +83,10 @@ export class CollaboratorComponent implements OnInit, AfterViewInit {
 
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null);
 
-  constructor(public dialog: MatDialog, public datePipe: DatePipe) { }
+  constructor(
+    public dialog: MatDialog,
+    public datePipe: DatePipe,
+    private collaboratorServices: CollaboratorService) { }
 
   ngOnInit() {
 
@@ -104,15 +108,15 @@ openDialog(action: string, obj: any) {
         data: obj
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //     if (result.event === 'Add') {
-    //         this.addRowData(result.data);
-    //     } else if (result.event === 'Update') {
-    //         this.updateRowData(result.data);
-    //     } else if (result.event === 'Delete') {
-    //         this.deleteRowData(result.data);
-    //     }
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+        if (result.event === 'Add') {
+            this.addRowData(result.data);
+        } else if (result.event === 'Update') {
+            this.updateRowData(result.data);
+        } else if (result.event === 'Delete') {
+            this.deleteRowData(result.data);
+        }
+    });
 }
 
 addRowData(row_obj: Collaborator) {
@@ -127,9 +131,21 @@ addRowData(row_obj: Collaborator) {
         Projects: row_obj.Projects,
         imagePath: row_obj.imagePath           
     });
-    this.dialog.open(CollaboratorDialogContent);
+    this.dialog.open(AddComponent);
 
     this.table.renderRows();
+
+    this.collaboratorServices.onAddEquipment({
+        id: collaborators.length + 1,
+        Name: row_obj.Name,
+        Position: row_obj.Position,
+        Email: row_obj.Email,
+        Mobile: row_obj.Mobile,
+        DateOfJoining: new Date(),
+        Salary: row_obj.Salary,
+        Projects: row_obj.Projects,
+        imagePath: row_obj.imagePath
+    })
 
 }
 
