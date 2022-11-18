@@ -58,15 +58,23 @@
 					</div>
 				</mat-toolbar>
 				<div class="b-b p-15 bg-white padding">
-					<form fxLayout.gt-lg="5px" [formGroup]="inputFg" class="d-md-flex align-items-center">
+					<form fxLayout.gt-lg="5px"
+						[formGroup]="inputFg"
+						#formDirective="ngForm"
+						(ngSubmit)="addTodo(formDirective)"
+					class="d-md-flex align-items-center">
 						<mat-form-field class="p-r-15 m-r-15">
 							<mat-label>Add new Todo</mat-label>
-							<input matInput #inputData formControlName='mess'
-								(keyup.enter)="addTodo(inputData.value)">
+							<input matInput formControlName='mess'>
 						</mat-form-field>
 						<div class="ml-auto">
-							<button mat-raised-button color="primary" [disabled]="!inputFg.valid" class="shadow-none"
-								id="btnAddTodo" (click)="addTodo(inputData.value)">Add Todo</button>
+							<button 
+								mat-raised-button 
+								color="primary" 
+								[disabled]="!inputFg.valid" 
+								class="shadow-none"
+								id="btnAddTodo" 
+								type="submit">Add Todo</button>
 						</div>
 					</form>
 				</div>
@@ -76,7 +84,8 @@
 						<div class="todo-item-left d-md-flex w-100">
 							<div>
 								<mat-checkbox [(ngModel)]="todo.completionStatus">{{todo.message}}</mat-checkbox>
-								<p class="m-t-0 font-12 text-muted font-normal p-l-25">{{todo.date | date}}</p>
+								<!-- <p class="m-t-0 font-12 text-muted font-normal p-l-25">{{todo.date | date}}</p> -->
+								<p class="m-t-0 font-12 text-muted font-normal p-l-25">{{todo.date}}</p>
 							</div>
 							<div class="todo-item-label w-100">
 								<div class="d-flex align-items-start" *ngIf="!todo.edit" (click)="editTodo(todo.id)">
@@ -91,6 +100,7 @@
 											<mat-icon>delete_outline</mat-icon>
 										</a>
 									</div>
+
 								</div>
 								<div class="d-flex align-items-start edit-view" *ngIf="todo.edit">
 

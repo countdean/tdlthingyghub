@@ -27,21 +27,33 @@ export class ProjectService {
 
   onFetchProject(){
     this.project$.subscribe((responseDTO) => {
-      console.log(responseDTO)
+      //console.log("ddddd",responseDTO)
       PROJECT_DATA.splice(0)
       for (var response of responseDTO) {
         PROJECT_DATA.push(response);
       }
-      console.log(PROJECT_DATA)
+      //console.log(PROJECT_DATA)
       setTimeout(() => {
-        console.log(responseDTO)
-        console.log(PROJECT_DATA)
+        //console.log(responseDTO)
+        //console.log(PROJECT_DATA)
       }, 2000);
     })
   }
 
 
-  onAddEquipment(data: any){
+  onAddProject(data: any){
+    //console.log("dataaaaa",data)
     return this.angularFireStore.collection('projects').add(data)
   }
+
+  onEditProject(currentData: ProjectDTO, newData: Project){
+    PROJECT_DATA[PROJECT_DATA.indexOf({
+      message: currentData.message,
+      date: currentData.date
+    })] = newData;
+    return this.angularFireStore.collection('projects').doc(currentData.id).update(newData);
+  }
+  
+
+
 }
