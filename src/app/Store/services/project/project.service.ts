@@ -15,7 +15,6 @@ export class ProjectService {
   constructor(
     private angularFireStore: AngularFirestore) { }
   
-
     getObservable(collection: AngularFirestoreCollection<Project>){
       const subject = new BehaviorSubject<Project[]>([]);
       collection.valueChanges({ idField: 'id' }).subscribe((val: Project[]) => {
@@ -24,40 +23,27 @@ export class ProjectService {
       return subject;
     };
 
-
   onFetchProject(){
     this.project$.subscribe((responseDTO) => {
-      //console.log("ddddd",responseDTO)
       PROJECT_DATA.splice(0)
       for (var response of responseDTO) {
         PROJECT_DATA.push(response);
       }
-      //console.log(PROJECT_DATA)
       setTimeout(() => {
-        //console.log(responseDTO)
-        //console.log(PROJECT_DATA)
       }, 2000);
     })
   }
 
-
-  onAddProject(data: any){
-    //console.log("dataaaaa",data)
+  addProject(data: any){
     return this.angularFireStore.collection('projects').add(data)
   }
 
-  onEditProject(currentData: ProjectDTO, newData: Project){
-
-    console.log(currentData)
-
-    PROJECT_DATA[PROJECT_DATA.indexOf({
-      message: currentData.message,
-      date: currentData.date,
-      edit: false,
-    })] = newData;
-    return this.angularFireStore.collection('projects').doc(currentData.id).update(newData);
+  editProject(project: ProjectDTO){
+    return this.angularFireStore.collection('projects').doc(project.id).update({ ...project, edit: false });
   }
-  
 
+  deleteProject(project: ProjectDTO){
+    return this.angularFireStore.collection('projects').doc(project.id).delete();
+  }
 
 }

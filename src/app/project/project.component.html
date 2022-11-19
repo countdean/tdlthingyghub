@@ -57,27 +57,29 @@
 						</div>
 					</div>
 				</mat-toolbar>
+
 				<div class="b-b p-15 bg-white padding">
 					<form fxLayout.gt-lg="5px"
-						[formGroup]="inputFg"
-						#formDirective="ngForm"
-						(ngSubmit)="addTodo(formDirective)"
+						[formGroup]="formProject"
+						#projectForm="ngForm"
+						(ngSubmit)="addProject(projectForm)"
 					class="d-md-flex align-items-center">
 						<mat-form-field class="p-r-15 m-r-15">
-							<mat-label>Add new Todo</mat-label>
-							<input matInput formControlName='mess'>
+							<mat-label>New Project</mat-label>
+							<input matInput formControlName="title">
 						</mat-form-field>
 						<div class="ml-auto">
 							<button 
-								mat-raised-button 
-								color="primary" 
-								[disabled]="!inputFg.valid" 
+								mat-raised-button
+								[disabled]="!formProject.valid"  
+								color="primary"  
 								class="shadow-none"
 								id="btnAddTodo" 
-								type="submit">Add Todo</button>
+								type="submit">Add</button>
 						</div>
 					</form>
 				</div>
+
 				<mat-card-content class="chat-middle-box" style="min-height:70vh">
 
 					<div *ngFor="let todo of copyTodos;let i=index" class="todo-item py-3 pl-3 border-bottom">
@@ -90,11 +92,11 @@
 							<div class="todo-item-label w-100">
 								<div class="d-flex align-items-start" *ngIf="!todo.edit">
 									<div class="ml-auto px-3 mr-2">
-										<a href="javascript: void(0);" (click)='editTodo(todo)'
+										<a href="javascript: void(0);" (click)='editTodo(i)'
 											class="link m-r-10" placement="top" ngbTooltip="Edit">
 											<mat-icon>edit</mat-icon>
 										</a>
-										<a href="javascript: void(0);" class="link text-danger" (click)='deleteTodo(i)'
+										<a href="javascript: void(0);" class="link text-danger" (click)='deleteTodo(todo,i)'
 											placement="top" ngbTooltip="Delete">
 											<mat-icon>delete_outline</mat-icon>
 										</a>
@@ -110,7 +112,7 @@
 
 									<!-- <input type="text" [(ngModel)]="todo.message" class="form-control" /> -->
 									<div class="ml-auto d-flex">
-										<a href="javascript: void(0);" (click)='saveUpdatedTodo(todo)'
+										<a href="javascript: void(0);" (click)='saveUpdatedTodo(todo, i)'
 											class="link m-r-10" placement="top" ngbTooltip="Save">
 											<mat-icon>done_all</mat-icon>
 										</a>

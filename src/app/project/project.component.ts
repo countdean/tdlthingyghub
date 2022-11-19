@@ -5,7 +5,7 @@ import { PTodoService } from './ptodo.service';
 import { PToDo } from './ptodo';
 import { FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { ProjectService } from '../Store/services/project/project.service';
-import { Project } from '../Model/project.model';
+import { Project, ProjectDTO } from '../Model/project.model';
 
 // import { AngularFireModule } from '@angular/fire';
 // import { AngularFireDatabase } from '@angular/fire/database';
@@ -21,7 +21,7 @@ export class ProjectComponent implements OnInit {
     sidePanelOpened = true;
 
     public showSidebar = false;
-    inputFg!: FormGroup;
+    formProject!: FormGroup;
     todoId = 6;
     copyTodos: Project[];
     /* search: 'all'; */
@@ -33,16 +33,13 @@ export class ProjectComponent implements OnInit {
 
     todos: any[] = this.ptodoService.getTodos();
 
-    // _projectForm!: FormGroup;
-  
   constructor(
     public fb: FormBuilder,
-    //public projectData: Project,
     public ptodoService: PTodoService,
     private projectService: ProjectService ) {
         this.copyTodos = this.todos;
-        this.inputFg = this.fb.group({
-            mess: ['', Validators.required]
+        this.formProject = this.fb.group({
+            title: ['', Validators.required]
         });
    }
 
@@ -56,49 +53,17 @@ mobileSidebar() {
 
 ngOnInit() {
     this.projectService.onFetchProject()
-    //console.log("AAAAAAAAAAAAAAAAA",this.projectService)
-    //this.projectForm()
+    
 }
 
-
-// projectForm(){
-//     var isEdit = this.projectService.isEdit;
-//     this._projectForm = this.formBuilder.group({
-//       name: new FormControl(isEdit?this.equipmentData.name:"", Validators.required),
-//       status: new FormControl(isEdit?this.equipmentData.status:"", Validators.required),
-//       price: new FormControl(isEdit?this.equipmentData.price:"", [
-//         Validators.required,
-//         RxwebValidators.numeric({allowDecimal:true,isFormat:true})  
-//       ]),
-//       category: new FormControl(isEdit?this.equipmentData.category:"", Validators.required),
-//       description: new FormControl(isEdit?this.equipmentData.description:"", Validators.required),
-//      });
-//   }
-
-addTodo(formDirective: FormGroupDirective, value?: string ) {
-    if (this.inputFg?.get('mess')?.value.trim().length === 0) {
-        return;
-    }
-    this.todos.splice(0,0,
-        {
-            //id: this.todoId,
-            // message: this.inputFg?.get('mess')?.value,
-            message: this.inputFg.value.mess,
-            completionStatus: false,
-            edit: false,
-            date: new Date().toLocaleString()
-        }
-    );
-        this.copyTodos = this.todos;
-        console.log("mess data",this.inputFg.value)
-        this.projectService.onAddProject({
-        message:  this.inputFg.value.mess,
+addProject(projectForm: FormGroupDirective) {
+    this.projectService.addProject({
+        message:  this.formProject.value.title,
         completionStatus: false,
         edit: false,
         date: new Date().toLocaleString()
-        
-     })
-     formDirective.resetForm();
+    })
+    projectForm.resetForm()
 }
 
 allTodos(): void {
@@ -123,44 +88,22 @@ selectionlblClick(val: string) {
       }
 }
 
+editTodo(index: number) {
+    this.copyTodos[index].edit = true;
+}
 
-editTodo(data: any) {
-    //console.log("AAAAAAAAAAAAA", data)
-    this.projectService.toEditData = data;
-    this.copyTodos.forEach(todo=>{
-        if(this.copyTodos.indexOf(todo) == this.copyTodos.indexOf(data)){
-            this.copyTodos[this.copyTodos.indexOf(todo)].edit = true;
-        } 
-    });
+saveUpdatedTodo(project: ProjectDTO, index: number) {
+    console.log(index)
+    this.projectService.editProject(project).then(()=>{
+    })
+    this.copyTodos[index].edit = false;   
+}
+
+deleteTodo(project: ProjectDTO, index: number) {
+    console.log(index);
+    this.projectService.deleteProject(project).then(()=>{
+    })
     
-}
-
-saveUpdatedTodo(data: any) {
-   console.log("=========",this.projectService.toEditData, data)
-   this.copyTodos.forEach(todo=>{
-    if(this.copyTodos.indexOf(todo) == this.copyTodos.indexOf(data)){
-        this.copyTodos[this.copyTodos.indexOf(todo)].edit = false;
-    } 
-});
-    this.projectService.onEditProject(this.projectService.toEditData, data).then(()=>{
-        
-    })
-   
-    //this.copyTodos = PROJECT_DATA;
-}
-
-onEditProject(formDirective: FormGroupDirective){
-    this.projectService.isEdit = false;
-    this.projectService.onEditProject(this.projectService.toEditData, this.inputFg.value).then(()=>{
-      //this.sharedService.openSnackBar("Equipment Edited Successfuly", "Ok");
-    })
-    //this.clearForm(formDirective)
-  }
-
-
-deleteTodo(id: number) {
-    console.log(id);
-    this.todos.splice(id, 1);
 }
 
 remainingList(): number {
