@@ -81,17 +81,16 @@
 				<mat-card-content class="chat-middle-box" style="min-height:70vh">
 
 					<div *ngFor="let todo of copyTodos;let i=index" class="todo-item py-3 pl-3 border-bottom">
-						<div class="todo-item-left d-md-flex w-100">
+						<div class="todo-item-left d-md-flex w-100" fxLayout="row">
 							<div>
 								<mat-checkbox [(ngModel)]="todo.completionStatus">{{todo.message}}</mat-checkbox>
 								<!-- <p class="m-t-0 font-12 text-muted font-normal p-l-25">{{todo.date | date}}</p> -->
 								<p class="m-t-0 font-12 text-muted font-normal p-l-25">{{todo.date}}</p>
 							</div>
 							<div class="todo-item-label w-100">
-								<div class="d-flex align-items-start" *ngIf="!todo.edit" (click)="editTodo(todo.id)">
-
+								<div class="d-flex align-items-start" *ngIf="!todo.edit">
 									<div class="ml-auto px-3 mr-2">
-										<a href="javascript: void(0);" (click)='editTodo(todo.id,"edit")'
+										<a href="javascript: void(0);" (click)='editTodo(todo)'
 											class="link m-r-10" placement="top" ngbTooltip="Edit">
 											<mat-icon>edit</mat-icon>
 										</a>
@@ -111,7 +110,7 @@
 
 									<!-- <input type="text" [(ngModel)]="todo.message" class="form-control" /> -->
 									<div class="ml-auto d-flex">
-										<a href="javascript: void(0);" (click)='editTodo(todo.id,"save")'
+										<a href="javascript: void(0);" (click)='saveUpdatedTodo(todo)'
 											class="link m-r-10" placement="top" ngbTooltip="Save">
 											<mat-icon>done_all</mat-icon>
 										</a>

@@ -47,9 +47,13 @@ export class ProjectService {
   }
 
   onEditProject(currentData: ProjectDTO, newData: Project){
+
+    console.log(currentData)
+
     PROJECT_DATA[PROJECT_DATA.indexOf({
       message: currentData.message,
-      date: currentData.date
+      date: currentData.date,
+      edit: false,
     })] = newData;
     return this.angularFireStore.collection('projects').doc(currentData.id).update(newData);
   }

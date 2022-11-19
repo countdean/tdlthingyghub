@@ -109,13 +109,17 @@ openDialog(action: string, obj: any) {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-        if (result.event === 'Add') {
-            this.addRowData(result.data);
-        } else if (result.event === 'Update') {
-            this.updateRowData(result.data);
-        } else if (result.event === 'Delete') {
-            this.deleteRowData(result.data);
-        }
+        switch(result.event) {
+            case 'Add':
+                this.addRowData(result.data);
+              break;
+            case 'Update':
+                this.updateRowData(result.data);
+              break;
+              case 'Delete':
+                this.deleteRowData(result.data);
+              break;
+          }
     });
 }
 
