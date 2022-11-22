@@ -77,6 +77,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { TaskComponent } from './project/task/task.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -124,7 +125,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TasklistComponent,
     TaskDialogContent,
     EmprankingComponent,
-    ProfileComponent
+    ProfileComponent,
+    TaskComponent
   ],
   entryComponents: [
     TaskDialogContent

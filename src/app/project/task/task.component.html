@@ -1,0 +1,92 @@
+<mat-card class="mat-card-top chat-app position-relative">
+
+    <mat-sidenav-container style="min-height:30vh">
+        
+        <mat-toolbar class="bg-light b-b no-shadow chat-right-panel p-l-25">
+            <div fxLayout="row" fxFlex="100" class="align-items-center">
+
+                <div class="d-flex align-items-center w-100">
+                    <mat-checkbox (change)="allTasks()" class="font-normal font-16">Mark All
+                    </mat-checkbox>
+                    <!-- <label for="all">Mark All</label> -->
+                    <div class="ml-auto d-flex align-items-center">
+
+                        <mat-chip-list>
+                            <mat-chip color="warn" selected>{{ taskremainingList() }} Tasks left</mat-chip>
+                        </mat-chip-list>&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+        </mat-toolbar>
+
+        <div class="b-b p-15 bg-white padding">
+            <form fxLayout.gt-lg="5px"
+                [formGroup]="formTask"
+                #taskForm="ngForm"
+                (ngSubmit)="addTask(taskForm)"
+            class="d-md-flex align-items-center">
+                <mat-form-field class="p-r-15 m-r-15">
+                    <mat-label>New Task</mat-label>
+                    <input matInput formControlName="title">
+                </mat-form-field>
+                <div class="ml-auto">
+                    <button 
+                        mat-raised-button
+                        [disabled]="!formTask.valid"  
+                        color="primary"  
+                        class="shadow-none"
+                        id="btnAddTodo" 
+                        type="submit">Add</button>
+                </div>
+            </form>
+        </div>
+
+        <mat-card-content class="chat-middle-box" style="min-height:30vh">
+
+            <div *ngFor="let task of copyTasks;let i=index" class="todo-item py-3 pl-3 border-bottom">
+                <div class="todo-item-left d-md-flex w-100" fxLayout="row">
+                    <div>
+                        <mat-checkbox [(ngModel)]="task.completionStatus">{{task.message}}</mat-checkbox>
+                        <!-- <p class="m-t-0 font-12 text-muted font-normal p-l-25">{{todo.date | date}}</p> -->
+                        <p class="m-t-0 font-12 text-muted font-normal p-l-25">{{task.date}}</p>
+                    </div>
+                    <div class="todo-item-label w-100">
+                        <div class="d-flex align-items-start" *ngIf="!task.edit">
+                            <div class="ml-auto px-3 mr-2">
+                                <a href="javascript: void(0);" (click)='editTask(i)'
+                                    class="link m-r-10" placement="top" ngbTooltip="Edit">
+                                    <mat-icon>edit</mat-icon>
+                                </a>
+                                <a href="javascript: void(0);" class="link text-danger" (click)='deleteTask(task,i)'
+                                    placement="top" ngbTooltip="Delete">
+                                    <mat-icon>delete_outline</mat-icon>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="d-flex align-items-start edit-view" *ngIf="task.edit">
+
+                            <mat-form-field>
+                                <mat-label></mat-label>
+                                <input matInput class="form-control" [(ngModel)]="task.message" />
+                            </mat-form-field>
+
+                            <!-- <input type="text" [(ngModel)]="todo.message" class="form-control" /> -->
+                            <div class="ml-auto d-flex">
+                                <a href="javascript: void(0);" (click)='saveUpdatedTask(task, i)'
+                                    class="link m-r-10" placement="top" ngbTooltip="Save">
+                                    <mat-icon>done_all</mat-icon>
+                                </a>
+                                <a href="javascript: void(0);" class="link text-danger" (click)='deleteTask(i)'
+                                    placement="top" ngbTooltip="Delete">
+                                    <mat-icon>delete_outline</mat-icon>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-sidenav-container>
+</mat-card>

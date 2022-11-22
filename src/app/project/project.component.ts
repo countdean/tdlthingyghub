@@ -28,7 +28,7 @@ export class ProjectComponent implements OnInit {
     selectedCategory = 'all';
     searchText: string | null = null;
     //searchText!: FormGroup;
-    editSave = 'Edit';
+    editSave = 'Edit';  
     // isEdit:boolean= false;
 
     todos: any[] = this.ptodoService.getTodos();
