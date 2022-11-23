@@ -1,0 +1,27 @@
+<mat-card class="mat-card-top chat-app position-relative">
+
+    <mat-sidenav-container style="min-height:30vh">
+
+        <div class="b-b p-15 bg-white padding">
+            <form fxLayout.gt-lg="5px"
+                [formGroup]="formTask"
+                #taskForm="ngForm"
+                (ngSubmit)="addTask(taskForm)"
+            class="d-md-flex align-items-center">
+                <mat-form-field class="p-r-15 m-r-15">
+                    <mat-label>New Task</mat-label>
+                    <input matInput formControlName="title">
+                </mat-form-field>
+                <div class="ml-auto">
+                    <button 
+                        mat-raised-button
+                        [disabled]="!formTask.valid"  
+                        color="primary"  
+                        class="shadow-none"
+                        id="btnAddTodo" 
+                        type="submit">Add</button>
+                </div>
+            </form>
+        </div>
+    </mat-sidenav-container>
+</mat-card>

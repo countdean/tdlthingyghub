@@ -19,7 +19,7 @@
             </div>
         </mat-toolbar>
 
-        <div class="b-b p-15 bg-white padding">
+        <!-- <div class="b-b p-15 bg-white padding">
             <form fxLayout.gt-lg="5px"
                 [formGroup]="formTask"
                 #taskForm="ngForm"
@@ -39,7 +39,7 @@
                         type="submit">Add</button>
                 </div>
             </form>
-        </div>
+        </div> -->
 
         <mat-card-content class="chat-middle-box" style="min-height:30vh">
 
@@ -49,6 +49,7 @@
                         <mat-checkbox [(ngModel)]="task.completionStatus">{{task.message}}</mat-checkbox>
                         <!-- <p class="m-t-0 font-12 text-muted font-normal p-l-25">{{todo.date | date}}</p> -->
                         <p class="m-t-0 font-12 text-muted font-normal p-l-25">{{task.date}}</p>
+                        <p class="m-t-0 font-12 text-muted font-normal p-l-25">{{task.id}}</p>
                     </div>
                     <div class="todo-item-label w-100">
                         <div class="d-flex align-items-start" *ngIf="!task.edit">
@@ -70,7 +71,6 @@
                                 <mat-label></mat-label>
                                 <input matInput class="form-control" [(ngModel)]="task.message" />
                             </mat-form-field>
-
                             <!-- <input type="text" [(ngModel)]="todo.message" class="form-control" /> -->
                             <div class="ml-auto d-flex">
                                 <a href="javascript: void(0);" (click)='saveUpdatedTask(task, i)'

@@ -3,7 +3,7 @@ import { timestamp } from "rxjs/operators";
 
 export interface Project {
      id?: string,
-     message: string,
+     name: string,
      completionStatus: boolean,
      edit: boolean,
      date: string
@@ -11,7 +11,7 @@ export interface Project {
 
   export interface ProjectDTO {
     id: string;
-    message: string;
+    name: string;
     date: string;
   }
 

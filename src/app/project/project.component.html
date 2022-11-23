@@ -82,41 +82,49 @@
 
 				<mat-card-content class="chat-middle-box" style="min-height:30vh">
 
-					<div *ngFor="let todo of copyTodos;let i=index" class="todo-item py-3 pl-3 border-bottom">
+					<div *ngFor="let project of copyTodos;let i=index" class="todo-item py-3 pl-3 border-bottom">
 						<div class="todo-item-left d-md-flex w-100" fxLayout="row">
 							<div>
-								<mat-checkbox [(ngModel)]="todo.completionStatus">{{todo.message}}</mat-checkbox>
+								<mat-checkbox [(ngModel)]="project.completionStatus">{{project.message}}</mat-checkbox>
 								<!-- <p class="m-t-0 font-12 text-muted font-normal p-l-25">{{todo.date | date}}</p> -->
-								<p class="m-t-0 font-12 text-muted font-normal p-l-25">{{todo.date}}</p>
+								<p class="m-t-0 font-12 text-muted font-normal p-l-25">{{project.date}}</p>
 							</div>
 							<div class="todo-item-label w-100">
-								<div class="d-flex align-items-start" *ngIf="!todo.edit">
+								<div class="d-flex align-items-start" *ngIf="!project.edit">
 									<div class="ml-auto px-3 mr-2">
-										<a href="javascript: void(0);" (click)='editTodo(i)'
+
+										<a href="javascript: void(0);" (click)='openDialog(i)'
+											class="link m-r-10" placement="top" ngbTooltip="Edit">
+											<mat-icon>add</mat-icon>
+										</a>
+
+										<a href="javascript: void(0);" (click)='editProject(i)'
 											class="link m-r-10" placement="top" ngbTooltip="Edit">
 											<mat-icon>edit</mat-icon>
 										</a>
+
 										<a href="javascript: void(0);" class="link text-danger" (click)='deleteTodo(todo,i)'
 											placement="top" ngbTooltip="Delete">
 											<mat-icon>delete_outline</mat-icon>
 										</a>
+
 									</div>
 
 								</div>
-								<div class="d-flex align-items-start edit-view" *ngIf="todo.edit">
+								<div class="d-flex align-items-start edit-view" *ngIf="project.edit">
 
 									<mat-form-field>
 										<mat-label></mat-label>
-										<input matInput class="form-control" [(ngModel)]="todo.message" />
+										<input matInput class="form-control" [(ngModel)]="project.name" />
 									</mat-form-field>
 
 									<!-- <input type="text" [(ngModel)]="todo.message" class="form-control" /> -->
 									<div class="ml-auto d-flex">
-										<a href="javascript: void(0);" (click)='saveUpdatedTodo(todo, i)'
+										<a href="javascript: void(0);" (click)='saveUpdatedTodo(project, i)'
 											class="link m-r-10" placement="top" ngbTooltip="Save">
 											<mat-icon>done_all</mat-icon>
 										</a>
-										<a href="javascript: void(0);" class="link text-danger" (click)='deleteTodo(i)'
+										<a href="javascript: void(0);" class="link text-danger" (click)='deleteProject(i)'
 											placement="top" ngbTooltip="Delete">
 											<mat-icon>delete_outline</mat-icon>
 										</a>

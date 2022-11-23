@@ -3,6 +3,8 @@ import { ProjectComponent } from '../project.component'
 import { FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { TaskService } from 'src/app/Store/services/task/task.service';
 import { Task, TaskDTO } from 'src/app/Model/task.model';
+import { ProjectDTO, Project } from 'src/app/Model/project.model';
+import { ProjectService } from 'src/app/Store/services/project/project.service';
 
 @Component({
   selector: 'app-task',
@@ -18,7 +20,9 @@ export class TaskComponent implements OnInit {
   constructor(
     public ptaskService : TaskService,
     public fb: FormBuilder
-  ) { 
+  ) 
+  
+  { 
     this.copyTasks = this.tasks;
         this.formTask = this.fb.group({
             title: ['', Validators.required]
@@ -48,8 +52,16 @@ addTask(taskForm: FormGroupDirective) {
   taskForm.resetForm()
 }
 
+editTask(index: number) {
+  this.copyTasks[index].edit = true;
+}
 
-
+saveUpdatedTask(task: TaskDTO, index: number) {
+  console.log(index)
+  this.ptaskService.editTask(task).then(()=>{
+  })
+  this.copyTasks[index].edit = false;   
+}
 
 
 deleteTask(task: TaskDTO, index: number) {

@@ -15,6 +15,9 @@ export class TaskService {
         return this.tasks;
     }
 
+    istaskEdit:boolean = false;
+    tasktoEditData!:TaskDTO;
+
   task$ = this.getObservable(this.angularFireStore.collection('tasks')) as Observable<Task[]>;
 
 

@@ -13,7 +13,7 @@ export class PTodoService {
     public todos: Project[] = PROJECT_DATA;
 
 
-    public getTodos() {
+    public getProjects() {
         return this.todos;
     }
 }
