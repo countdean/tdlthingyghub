@@ -126,7 +126,6 @@ deleteTodo(project: ProjectDTO, index: number) {
     console.log(index);
     this.projectService.deleteProject(project).then(()=>{
     })
-    
 }
 
 remainingList(): number {

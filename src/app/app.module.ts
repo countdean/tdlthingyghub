@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
-
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FullComponent } from './layouts/full/full.component';
 import { AppHeaderComponent } from './layouts/full/header/header.component';
@@ -14,22 +13,18 @@ import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { AppBreadcrumbComponent } from './layouts/full/breadcrumb/breadcrumb.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule } from './demo-material-module';
-
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
-
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TaskboardComponent } from './taskboard/taskboard.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
 import { DashboardEmpComponent } from './dashboard/dashboard-components/dashboard-emp/dashboard-emp.component';
 import { EmpDialogComponent } from './dashboard/dashboard-components/dashboard-emp/emp-dialog/emp-dialog.component';
 import { MatCardModule } from '@angular/material/card';
@@ -41,9 +36,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { DatePipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { CollaboratorDialogContent } from './collaborator/collaborator.component';
-
-//import { MatDialog } from '@angular/material/dialog';
-
 import {
   TopCardComponent,
   SalesOverviewComponent,
@@ -64,7 +56,6 @@ import {
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { ProjectComponent } from './project/project.component';
 import { CollaboratorComponent } from './collaborator/collaborator.component';
-
 import { AddComponent } from './collaborator/add/add.component';
 import { TasklistComponent } from './dashboard/dashboard-components/tasklist/tasklist.component';
 import { TaskDialogContent } from './dashboard/dashboard-components/tasklist/tasklist.component';
@@ -79,6 +70,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { TaskComponent } from './project/task/task.component';
 import { TaskDialogComponent } from './project/task-dialog/task-dialog.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { DialogComponentComponent } from './projects/dialog-component/dialog-component.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -128,7 +122,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EmprankingComponent,
     ProfileComponent,
     TaskComponent,
-    TaskDialogComponent
+    TaskDialogComponent,
+    ProjectsComponent,
+    DialogComponentComponent
   ],
   entryComponents: [
     TaskDialogContent
@@ -153,6 +149,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CdkTableModule,
     NgxChartsModule,
     ReactiveFormsModule,
+    NgxDatatableModule,
+
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

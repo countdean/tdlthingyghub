@@ -1,0 +1,162 @@
+<div fxLayout="row" fxLayoutAlign="center start">
+    <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card class="mat-card-top chat-app position-relative">
+			<mat-sidenav-container
+				[ngClass]="{ 'side-panel-opened': sidePanelOpened, 'side-panel-closed': !sidePanelOpened }"
+				style="min-height:30vh">
+				<mat-sidenav #chatnav right [mode]="isOver() ? 'over' : 'side'" [opened]="!isOver()"
+					(open)="sidePanelOpened = true" (close)="sidePanelOpened = false" position="end">
+					<mat-toolbar class="no-shadow bg-white">
+						<div fxLayout="row" fxFlex="100">
+							<h4>Todo App</h4>
+						</div>
+					</mat-toolbar>
+
+					<!-- <mat-nav-list>
+						<mat-list-item (click)="selectionlblClick('all')" class="all font-normal"
+							[class.active]="selectedCategory === 'all'">
+							All
+							<mat-chip-list class="ml-auto">
+								<mat-chip color="primary" selected>{{todos.length}}</mat-chip>
+							</mat-chip-list>
+						</mat-list-item>
+						<mat-list-item [class.active]="selectedCategory === 'uncomplete'" class="incomplete font-normal"
+							(click)="selectionlblClick('uncomplete')">
+							Incompleted
+							<mat-chip-list class="ml-auto">
+								<mat-chip color="warn" selected>{{ remainingList() }}</mat-chip>
+							</mat-chip-list>
+						</mat-list-item>
+						<mat-list-item [class.active]="selectedCategory === 'complete'" class="complete font-normal"
+							(click)="selectionlblClick('complete')">
+							Completed
+							<mat-chip-list class="ml-auto">
+								<mat-chip color="accent" selected>{{todos.length - remainingList()}}</mat-chip>
+							</mat-chip-list>
+						</mat-list-item>
+					</mat-nav-list> -->
+				</mat-sidenav>
+				<mat-toolbar class="bg-light b-b no-shadow chat-right-panel p-l-25">
+					<!-- <div fxLayout="row" fxFlex="100" class="align-items-center">
+
+						<div class="d-flex align-items-center w-100">
+							<mat-checkbox (change)="allTodos()" class="font-normal font-16">Mark All
+							</mat-checkbox>
+							<div class="ml-auto d-flex align-items-center">
+
+								<mat-chip-list>
+									<mat-chip color="warn" selected>{{ remainingList() }} Tasks left</mat-chip>
+								</mat-chip-list>&nbsp;&nbsp;
+								<button (click)="chatnav.toggle()" color="primary" class="ml-1 shadow-none"
+									mat-mini-fab>
+									<mat-icon>short_text</mat-icon>
+								</button>
+							</div>
+						</div>
+					</div> -->
+				</mat-toolbar>
+
+				<div class="b-b p-15 bg-white padding">
+					<form fxLayout.gt-lg="5px"
+						[formGroup]="formProject"
+						#projectForm="ngForm"
+						(ngSubmit)="addProject(projectForm)"
+					class="d-md-flex align-items-center">
+						<mat-form-field class="p-r-15 m-r-15">
+							<mat-label>New Project</mat-label>
+							<input matInput formControlName="name">
+						</mat-form-field>
+						<div class="ml-auto">
+							<button 
+								mat-raised-button
+								[disabled]="!formProject.valid"  
+								color="primary"  
+								class="shadow-none"
+								id="btnAddTodo" 
+								type="submit">Add</button>
+						</div>
+					</form>
+				</div>
+
+				<mat-card-content class="chat-middle-box" style="min-height:30vh">
+					<mat-accordion>
+						
+						<div *ngFor="let project of projects$ | async;let i=index" class="todo-item py-3 pl-3 border-bottom">
+							<mat-expansion-panel >
+								<mat-expansion-panel-header>
+									<div class="todo-item-left d-md-flex w-100" fxLayout="row">
+										<div *ngIf="project.id !== selectedProjectId" fxLayout="row">
+											<mat-checkbox [(ngModel)]="project.completionStatus">{{project.name}}&nbsp;&nbsp;
+													<span class="text-muted"> {{project.date}}</span>
+											</mat-checkbox>
+										</div>
+										<div class="todo-item-label w-100">
+											<div class="d-flex align-items-start" *ngIf="project.id !== selectedProjectId">
+												<div class="ml-auto px-3 mr-2">
+			
+													<a href="javascript: void(0);" (click)='openDialog(i, project)'
+														class="link m-r-10" placement="top" ngbTooltip="Edit">
+														<mat-icon>add</mat-icon>
+													</a>
+			
+													<a href="javascript: void(0);" (click)='selectProject(project.id)'
+														class="link m-r-10" placement="top" ngbTooltip="Edit">
+														<mat-icon>edit</mat-icon>
+													</a>
+			
+													<a href="javascript: void(0);" class="link text-danger"  (click)='openDialog(i, project)'
+														placement="top" ngbTooltip="Delete">
+														<mat-icon>delete_outline</mat-icon>
+													</a>
+													<!-- <a href="javascript: void(0);" class="link text-danger"  (click)='removeProject(project)'
+														placement="top" ngbTooltip="Delete">
+														<mat-icon>delete_outline</mat-icon>
+													</a> -->
+			
+												</div>
+			
+											</div>
+											<div class="d-flex align-items-start edit-view" *ngIf="project.id === selectedProjectId">
+			
+												<mat-form-field>
+													<mat-label></mat-label>
+													<input matInput class="form-control" [(ngModel)]="project.name" />
+												</mat-form-field>
+			
+												
+												<div class="ml-auto d-flex">
+													<a href="javascript: void(0);" (click)='editProject(project)'
+														class="link m-r-10" placement="top" ngbTooltip="Save">
+														<mat-icon>done_all</mat-icon>
+													</a>
+													<!-- <a href="javascript: void(0);" class="link text-danger" (click)='deleteProject(project)'
+														placement="top" ngbTooltip="Delete">
+														<mat-icon>delete_outline</mat-icon>
+													</a> -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</mat-expansion-panel-header>
+								<!-- <p>I'm visible because I am open</p> -->
+								<mat-card>
+									<mat-card-content>
+										<mat-card-title>Filtered table</mat-card-title>
+										<!-- <mat-form-field>
+											<input matInput type='text' class="form-control" placeholder='Type to filter the name column...' (keyup)='updateFilter($event)'
+											/>
+										</mat-form-field> -->
+										<ngx-datatable #table class='material' [columns]="columns" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+											[rowHeight]="'auto'" [limit]="10" [rows]='rows'>
+										</ngx-datatable>
+									</mat-card-content>
+								</mat-card>
+							</mat-expansion-panel>
+							
+						</div>
+					</mat-accordion>
+				</mat-card-content>
+			</mat-sidenav-container>
+		</mat-card>
+    </div>
+</div>
