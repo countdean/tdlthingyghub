@@ -1,6 +1,8 @@
+
 <div>
-    <p>Do you want to delete this task?</p>
-    <div class="btn">
+    <h4>{{this.dialogData.title}}</h4>
+    <p>{{this.dialogData.description}}</p>
+    <div class="btn" fxLayout="row" fxLayoutAlign="center start">
         <button mat-dialog-close mat-button color="warn" (click)='removeProject()'>
             Yes
         </button>&nbsp;
@@ -9,3 +11,4 @@
         </button>
     </div>
 </div>
+

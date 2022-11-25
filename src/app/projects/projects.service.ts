@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Project } from './projects.model';
+import { Project } from './models/projects.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,12 @@ export class ProjectsService {
     private angularFireStore: AngularFirestore,
   ) { }
 
-  createProject(project: Project){
+  createTask(project: Project){
     this.angularFireStore.collection<Project>('projects').add(project)
+  }
+
+  createProject(project: Project){
+    this.angularFireStore.collection<Project>('project').add(project)
   }
 
   updateProject(project: Project){

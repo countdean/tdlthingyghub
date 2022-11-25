@@ -8,7 +8,7 @@
 					(open)="sidePanelOpened = true" (close)="sidePanelOpened = false" position="end">
 					<mat-toolbar class="no-shadow bg-white">
 						<div fxLayout="row" fxFlex="100">
-							<h4>Todo App</h4>
+							<h4>Project App</h4>
 						</div>
 					</mat-toolbar>
 
@@ -81,7 +81,7 @@
 				<mat-card-content class="chat-middle-box" style="min-height:30vh">
 					<mat-accordion>
 						
-						<div *ngFor="let project of projects$ | async;let i=index" class="todo-item py-3 pl-3 border-bottom">
+						<div *ngFor="let project of projects$ | async; let i=index" class="todo-item py-3 pl-3 border-bottom">
 							<mat-expansion-panel >
 								<mat-expansion-panel-header>
 									<div class="todo-item-left d-md-flex w-100" fxLayout="row">
@@ -94,7 +94,7 @@
 											<div class="d-flex align-items-start" *ngIf="project.id !== selectedProjectId">
 												<div class="ml-auto px-3 mr-2">
 			
-													<a href="javascript: void(0);" (click)='openDialog(i, project)'
+													<a href="javascript: void(0);" (click)="openDialog('add-task-form')"
 														class="link m-r-10" placement="top" ngbTooltip="Edit">
 														<mat-icon>add</mat-icon>
 													</a>
@@ -104,7 +104,7 @@
 														<mat-icon>edit</mat-icon>
 													</a>
 			
-													<a href="javascript: void(0);" class="link text-danger"  (click)='openDialog(i, project)'
+													<a href="javascript: void(0);" class="link text-danger"  (click)='openDialog("delete-project-alert", project)'
 														placement="top" ngbTooltip="Delete">
 														<mat-icon>delete_outline</mat-icon>
 													</a>
@@ -152,7 +152,7 @@
 									</mat-card-content>
 								</mat-card>
 							</mat-expansion-panel>
-							
+							<br>
 						</div>
 					</mat-accordion>
 				</mat-card-content>

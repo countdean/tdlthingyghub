@@ -71,8 +71,9 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { TaskComponent } from './project/task/task.component';
 import { TaskDialogComponent } from './project/task-dialog/task-dialog.component';
 import { ProjectsComponent } from './projects/projects.component';
-import { DialogComponentComponent } from './projects/dialog-component/dialog-component.component';
+import { AlertDialogComponent } from './projects/alert-dialog/alert-dialog.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FormDialogComponent } from './projects/form-dialog/form-dialog.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -124,7 +125,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TaskComponent,
     TaskDialogComponent,
     ProjectsComponent,
-    DialogComponentComponent
+    AlertDialogComponent,
+    FormDialogComponent
   ],
   entryComponents: [
     TaskDialogContent
