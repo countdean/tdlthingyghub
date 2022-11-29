@@ -3,7 +3,6 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProjectsService } from '../projects.service';
 
-
 @Component({
   selector: 'app-alert-dialog',
   templateUrl: './alert-dialog.component.html',

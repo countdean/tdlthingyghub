@@ -1,33 +1,41 @@
-<div>
+<div class="b-b p-15 bg-white">
     <h4>Task Form</h4><br/>
-    <form>
+    <form  
+        [formGroup]="formTask"
+        #tasksForm="ngForm"
+        (ngSubmit)="addTask(tasksForm)">
         <mat-form-field>
-            <input matInput placeholder="Name">
+            <input matInput 
+                placeholder="Name" 
+                formControlName="name">
         </mat-form-field>
-        <mat-form-field>
+        <!-- <mat-form-field>
             <input matInput [matDatepicker]="picker3" placeholder="Start Date" [formControl]="date">
             <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
             <mat-datepicker #picker3></mat-datepicker>
-        </mat-form-field>
+        </mat-form-field> -->
         <mat-form-field>
-            <input matInput [matDatepicker]="picker3" placeholder="End Date" [formControl]="date">
+            <input matInput [matDatepicker]="picker3" placeholder="End Date" formControlName="endDate">
             <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
             <mat-datepicker #picker3></mat-datepicker>
         </mat-form-field>
-        <mat-form-field>
+        <!-- <mat-form-field>   
             <mat-select placeholder="Status">
                 <mat-option value="option">In Progress </mat-option>
             </mat-select>
-        </mat-form-field>
-        <div class="btn" fxLayout="row" fxLayoutAlign="center start">
-            <button mat-dialog-close mat-button color="warn" (click)='null'>
+        </mat-form-field> -->
+        <div class="btn" fxLayout="row" 
+            fxLayoutAlign="center start">
+            <button mat-dialog-close 
+                    mat-button  
+                    color="primary"
+                    type="submit">
                 Add
             </button>&nbsp;
             <button mat-dialog-close mat-button>
                 Cancel
             </button>
         </div>
-
     </form>
    
 </div>

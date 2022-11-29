@@ -4,5 +4,6 @@ export interface Task {
     name: string,
     completionStatus: boolean,
     edit: boolean,
-    date: string
+    date: string,
+    endDate?: string,
 }

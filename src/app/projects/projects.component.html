@@ -55,13 +55,12 @@
 						</div>
 					</div> -->
 				</mat-toolbar>
-
 				<div class="b-b p-15 bg-white padding">
 					<form fxLayout.gt-lg="5px"
 						[formGroup]="formProject"
 						#projectForm="ngForm"
 						(ngSubmit)="addProject(projectForm)"
-					class="d-md-flex align-items-center">
+						class="d-md-flex align-items-center">
 						<mat-form-field class="p-r-15 m-r-15">
 							<mat-label>New Project</mat-label>
 							<input matInput formControlName="name">
@@ -73,14 +72,13 @@
 								color="primary"  
 								class="shadow-none"
 								id="btnAddTodo" 
-								type="submit">Add</button>
+								type="submit">Add
+							</button>
 						</div>
 					</form>
 				</div>
-
 				<mat-card-content class="chat-middle-box" style="min-height:30vh">
 					<mat-accordion>
-						
 						<div *ngFor="let project of projects$ | async; let i=index" class="todo-item py-3 pl-3 border-bottom">
 							<mat-expansion-panel >
 								<mat-expansion-panel-header>
@@ -129,33 +127,75 @@
 														class="link m-r-10" placement="top" ngbTooltip="Save">
 														<mat-icon>done_all</mat-icon>
 													</a>
-													<!-- <a href="javascript: void(0);" class="link text-danger" (click)='deleteProject(project)'
-														placement="top" ngbTooltip="Delete">
-														<mat-icon>delete_outline</mat-icon>
-													</a> -->
 												</div>
 											</div>
 										</div>
 									</div>
 								</mat-expansion-panel-header>
 								<!-- <p>I'm visible because I am open</p> -->
-								<mat-card>
+								<!-- <mat-card>
 									<mat-card-content>
 										<mat-card-title>Filtered table</mat-card-title>
-										<!-- <mat-form-field>
-											<input matInput type='text' class="form-control" placeholder='Type to filter the name column...' (keyup)='updateFilter($event)'
-											/>
-										</mat-form-field> -->
+										
 										<ngx-datatable #table class='material' [columns]="columns" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
-											[rowHeight]="'auto'" [limit]="10" [rows]='rows'>
+											[rowHeight]="'auto'" [limit]="3" [rows]='rows'>
 										</ngx-datatable>
 									</mat-card-content>
-								</mat-card>
+								</mat-card> -->
+								<div fxLayout="row wrap">
+									<div *ngFor="let tasks of tasks$ | async; let i=index" class="todo-item py-3 pl-3 border-bottom"></div>
+									<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+									  <mat-card>
+										<mat-card-content>
+										  <mat-card-title>Task</mat-card-title>
+										  <div class="bg-light p-10 p-r-20 p-l-20">
+											<mat-form-field>
+											  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Task">
+											</mat-form-field>
+										  </div>
+
+										  <!-- <div *ngIf="project.id !== selectedProjectId" fxLayout="row">
+											<mat-checkbox [(ngModel)]="project.completionStatus">{{project.name}}&nbsp;&nbsp;
+													<span class="text-muted"> {{project.date}}</span>
+											</mat-checkbox>
+										</div> -->
+								  
+										  <div class="responsive-table">
+											<mat-table *ngFor="let tasks of tasks$ | async; let i=index">
+											  <ng-container matColumnDef="name">
+												<mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+												<mat-cell *matCellDef="let tasks"> {{task.name}} </mat-cell>
+											  </ng-container>
+								  
+											  <ng-container matColumnDef="date">
+												<mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+												<mat-cell *matCellDef="let tasks"> {{task.date}} </mat-cell>
+											  </ng-container>
+
+											  <ng-container matColumnDef="endDate">
+												<mat-header-cell *matHeaderCellDef> End Date </mat-header-cell>
+												<mat-cell *matCellDef="let tasks"> {{task.date}} </mat-cell>
+											  </ng-container>
+											  
+											  <!-- <ng-container matColumnDef="collaborator">
+												<mat-header-cell *matHeaderCellDef> Collaborator </mat-header-cell>
+												<mat-cell *matCellDef="let element"> {{project.collaborator}} </mat-cell>
+											  </ng-container> -->
+								  
+											  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+											  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+											</mat-table>
+										  </div>
+										</mat-card-content>
+									  </mat-card>
+									</div>
+								  </div>
 							</mat-expansion-panel>
 							<br>
 						</div>
 					</mat-accordion>
 				</mat-card-content>
+				
 			</mat-sidenav-container>
 		</mat-card>
     </div>

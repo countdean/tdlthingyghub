@@ -55,18 +55,18 @@ const MENUITEMS = [
     //     type: 'link',
     //     icon: 'content_copy'
     // },
-    {
-        state: 'taskboard',
-        name: 'Taskboard',
-        type: 'link',
-        icon: 'content_copy'
-    },
-    {
-        state: 'leaderboard',
-        name: 'Leaderboard',
-        type: 'link',
-        icon: 'content_copy'
-    },
+    // {
+    //     state: 'taskboard',
+    //     name: 'Taskboard',
+    //     type: 'link',
+    //     icon: 'content_copy'
+    // },
+    // {
+    //     state: 'leaderboard',
+    //     name: 'Leaderboard',
+    //     type: 'link',
+    //     icon: 'content_copy'
+    // },
     // {
     //     state: 'material',
     //     name: 'Material Ui',
