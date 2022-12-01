@@ -2,8 +2,8 @@
     <h4>Task Form</h4><br/>
     <form  
         [formGroup]="formTask"
-        #tasksForm="ngForm"
-        (ngSubmit)="addTask(tasksForm)">
+       
+        (ngSubmit)="addTaskByUpdateProject()">
         <mat-form-field>
             <input matInput 
                 placeholder="Name" 

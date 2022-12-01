@@ -20,11 +20,16 @@ export class ProjectsService {
   }
 
   createProject(project: Project){
-    this.angularFireStore.collection<Project>('project').add(project)
+    this.angularFireStore.collection<Project>('projects').add(project)
   }
 
   updateProject(project: Project){
     this.angularFireStore.collection<Project>('projects').doc(project.id).update(project)
+  }
+
+  updateTask(project: any[], projectId: string){
+    console.log("**************", projectId)
+    this.angularFireStore.collection<Project>('projects').doc(projectId).update({tasks: project})
   }
 
   deleteProject(project: Project){

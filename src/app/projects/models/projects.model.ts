@@ -5,4 +5,5 @@ export interface Project {
     completionStatus: boolean,
     edit: boolean,
     date: string
+    tasks?:any[]
 }

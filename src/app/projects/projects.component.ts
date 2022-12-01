@@ -30,6 +30,7 @@ export class ProjectsComponent implements OnInit {
   sidePanelOpened = true
   formProject!: FormGroup;
   selectedProjectId: string = ""
+  selectedTaskId: string = ""
 
   @ViewChild(ProjectsComponent, { static: true }) table: ProjectsComponent = Object.create(null);
   
@@ -48,9 +49,9 @@ export class ProjectsComponent implements OnInit {
       name: ['', Validators.required],
     });
   }
-
+    
   ngOnInit(){
-   console.log(this.projects$)
+   console.log()
   }
 
   openAlertDialog(data: Project | Task , title: string, description: string) {
@@ -68,10 +69,11 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  openFormDialog(task?: Task) {
+  openFormDialog(project: Project) {
+    console.log("asdfgdsfgsdfgsdfdfgg", project)
     const dialogRef = this.taskDialog.open(FormDialogComponent, {
         data: {
-          data: task,
+          project: project,
         }
     });
 
@@ -79,16 +81,16 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  openDialog(action: string, data: Project | Task){
+  openDialog(action: string, project: Project | Task){
     switch(action){
       case "delete-project-alert":
-        this.openAlertDialog(data, "Delete Project", "Do you want to delete project?")
+        this.openAlertDialog(project, "Delete Project", "Do you want to delete project?")
         break;
       case "delete-task-alert":
-        this.openAlertDialog(data, "Delete Task", "Do you want to delete task?")
+        this.openAlertDialog(project, "Delete Task", "Do you want to delete task?")
         break;
       case "add-task-form":
-        this.openFormDialog()
+        this.openFormDialog(project)
         break;
       default: break;
     }
@@ -105,7 +107,7 @@ export class ProjectsComponent implements OnInit {
     projectForm.resetForm()
   }
 
-  addTask(projectForm: FormGroupDirective) {
+  addTask(taskForm: FormGroupDirective) {
     this.projectService.createProject({
         name:  this.formProject.value.name,
         completionStatus: false,
@@ -113,13 +115,15 @@ export class ProjectsComponent implements OnInit {
         date: new Date().toLocaleString()
     })
     alert("Added Task Successfully!")
-    projectForm.resetForm()
+    taskForm.resetForm()
   }
 
   editProject(project: Project) {
+
     this.projectService.updateProject(project)
     this.selectedProjectId = ""
   }
+
 
   // removeProject(project: Project) {
   //   this.projectService.deleteProject(project)
@@ -129,14 +133,13 @@ export class ProjectsComponent implements OnInit {
     this.selectedProjectId = id
   }
 
-  displayedColumns = ['name', 'date', 'endDate'];
-  
+  displayedColumns = ['taskName', 'date', 'endDate'];
   dataSource = new MatTableDataSource<Task>();
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
+    // this.dataSource.filter = filterValue;
 }
 
   isOver(): boolean {
